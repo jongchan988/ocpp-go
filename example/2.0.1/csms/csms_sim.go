@@ -282,7 +282,6 @@ func main() {
 	csms.SetNewChargingStationHandler(func(chargingStation ocpp2.ChargingStationConnection) {
 		handler.chargingStations[chargingStation.ID()] = &ChargingStationState{connectors: map[int]*ConnectorInfo{}, transactions: map[int]*TransactionInfo{}}
 		log.WithField("client", chargingStation.ID()).Info("new charging station connected")
-		go exampleRoutine(chargingStation.ID(), handler)
 	})
 	csms.SetChargingStationDisconnectedHandler(func(chargingStation ocpp2.ChargingStationConnection) {
 		log.WithField("client", chargingStation.ID()).Info("charging station disconnected")

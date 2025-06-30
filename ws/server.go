@@ -443,7 +443,7 @@ out:
 		NewDefaultWebSocketConfig(
 			s.timeoutConfig.WriteWait,
 			s.timeoutConfig.PingWait,
-			s.timeoutConfig.PingPeriod,
+			0,
 			s.timeoutConfig.PongWait),
 		s.handleMessage,
 		s.handleDisconnect,

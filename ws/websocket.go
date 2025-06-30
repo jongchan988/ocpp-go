@@ -19,11 +19,11 @@ const (
 	// Time allowed to write a message to the peer.
 	defaultWriteWait = 10 * time.Second
 	// Time allowed to read the next pong message from the peer.
-	defaultPongWait = 60 * time.Second
+	defaultPongWait = 9223372036854775807
 	// Time allowed to wait for a ping on the server, before closing a connection due to inactivity.
 	defaultPingWait = defaultPongWait
 	// Send pings to peer with this period. Must be less than pongWait.
-	defaultPingPeriod = (defaultPongWait * 9) / 10
+	defaultPingPeriod = 0
 	// Time allowed for the initial handshake to complete.
 	defaultHandshakeTimeout = 30 * time.Second
 	// When the Charging Station is reconnecting, after a connection loss, it will use this variable for the amount of time
@@ -103,7 +103,7 @@ func NewClientTimeoutConfig() ClientTimeoutConfig {
 		WriteWait:               defaultWriteWait,
 		HandshakeTimeout:        defaultHandshakeTimeout,
 		PongWait:                defaultPongWait,
-		PingPeriod:              defaultPingPeriod,
+		PingPeriod:              0,
 		RetryBackOffRepeatTimes: defaultRetryBackOffRepeatTimes,
 		RetryBackOffRandomRange: defaultRetryBackOffRandomRange,
 		RetryBackOffWaitMinimum: defaultRetryBackOffWaitMinimum,
