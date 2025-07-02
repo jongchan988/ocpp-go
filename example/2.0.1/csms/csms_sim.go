@@ -7,9 +7,9 @@ import (
 	"os"
 	"strconv"
 	"time"
-
+	"os/signal"
+	"syscall"
 	"github.com/sirupsen/logrus"
-
 	"github.com/lorenzodonini/ocpp-go/ocpp2.0.1"
 	"github.com/lorenzodonini/ocpp-go/ocpp2.0.1/availability"
 	"github.com/lorenzodonini/ocpp-go/ocpp2.0.1/diagnostics"
@@ -248,6 +248,16 @@ func exampleRoutine(chargingStationID string, handler *CSMSHandler) {
 
 // Start function
 func main() {
+    c := make(chan os.Signal, 1)
+	signal.Notify(c, syscall.SIGINT, syscall.SIGTERM)
+
+	go func() {
+		s := <-c
+		// 종료 전에 필요한 작업 수행
+		println("📦 Received signal:", s.String())
+		// 필요 시: 로그 저장, 커넥션 종료 등
+		os.Exit(0) // 여기가 중요: 정상 종료 → 커버리지 flush 됨
+	}()
 	// Load config from ENV
 	var listenPort = defaultListenPort
 	port, _ := os.LookupEnv(envVarServerPort)
